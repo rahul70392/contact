@@ -7,7 +7,7 @@ var editContact = require('../api/editContact.js')
 
 
 router.post('/add', addContact.add)
-router.get('/list', listContact.list)
+router.post('/list', listContact.list)
 router.post('/delete', deleteContact.del)
 router.post('/edit',editContact.edit)
 
