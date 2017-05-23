@@ -17,7 +17,10 @@ function contactList() {
 				html += '<td>' + `<button type="button" id=${i + 1} onclick="editCon(${i + 1},'${fn}','${ln}','${em}')">` + "EDIT" + `</button>` + `</td>`;
 				html += '<td>' + `<button type="button" id=${i + 1} onclick="deleteCon('${fn}','${ln}','${em}')">` + "DELETE" + `</button>` + `</td>`;
 				html += '</tr>';
+				
 			};
+			html += '</br>';
+			html += '<button value="Submit" onclick="SignOff()">Sign Off</button>'
 			document.getElementById('contact_list').innerHTML = html;
 
 
@@ -103,5 +106,9 @@ function addAfterEdit() {
 		.then(function (response) {
 			contactList();
 		})
+}
+
+function SignOff() {
+	location.replace('/')
 }
 contactList();

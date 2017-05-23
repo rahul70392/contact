@@ -21,11 +21,7 @@ authenticate = (req, res, next) => {
 				req.session.email = req.body.email;
 				req.session.isLogged = true;
 				console.log('inside auth', req.session.email);
-				// if user is found and password is right
-				// create a token
-				// var token = jwt.sign(user, 'secret123');
-				// tokenOut.token = token;
-				// console.log('a',a);
+				
 				// return the information including token as JSON
 				res.json({
 					success: true,
