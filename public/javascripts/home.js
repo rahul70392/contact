@@ -40,10 +40,8 @@ function addCon() {
 	})
 		.then(function (response) {
 			if (response) {
-				contactList()
+			console.log('add rsep',response);
 			}
-
-
 		})
 		.then(function () {
 			contactList();

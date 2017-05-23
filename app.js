@@ -4,11 +4,24 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+// var dotenv = require('dotenv');
+
+// // We are using the dotenv library to load our environmental variables from the .env file. We don't have anything in the .env file for now, but we will soon.
+// dotenv.load();
 
 var view = require('./routes/view');
 var api = require('./routes/api');
 
 var app = express();
+
+app.use(session({
+	// Here we are creating a unique session identifier
+	secret: 'secret123',
+	resave: true,
+	saveUninitialized: true
+}));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
