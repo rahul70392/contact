@@ -15,7 +15,7 @@ function contactList() {
 				html += `<td id=rowln${i + 1} value=${response.data.result[i].last_name}>` + response.data.result[i].last_name + '</td>';
 				html += `<td id=rowmail${i + 1} value=${response.data.result[i].email}>` + response.data.result[i].email + '</td>';
 				html += '<td>' + `<button type="button" id=${i + 1} onclick="editCon(${i + 1},'${fn}','${ln}','${em}')">` + "EDIT" + `</button>` + `</td>`;
-				html += '<td>' + `<button type="button" id=${i + 1} onclick="deleteCon('${em}')">` + "DELETE" + `</button>` + `</td>`;
+				html += '<td>' + `<button type="button" id=${i + 1} onclick="deleteCon('${fn}','${ln}','${em}')">` + "DELETE" + `</button>` + `</td>`;
 				html += '</tr>';
 			};
 			document.getElementById('contact_list').innerHTML = html;
@@ -54,9 +54,11 @@ function addCon() {
 
 
 
-function deleteCon(email) {
+function deleteCon(fname,lname,email) {
 	var deleteId;
 	axios.post('/api/delete', {
+		fname: fname,
+		lname : lname,
 		deleteemail: email
 	})
 		.then(function (response) {
@@ -73,7 +75,7 @@ function deleteCon(email) {
 
 function editCon(i, fn, ln, em) {
 
-	var fntopass = fn;
+	// var fntopass = fn;
 
 	var html = '';
 	html += '<tr>';
@@ -92,7 +94,7 @@ function addAfterEdit() {
 	var lastName = document.getElementById("lnedit").value;
 	var email = document.getElementById("emailedit").value;
 
-	console.log('eeee ', email);
+	// console.log('eeee ', email);
 	axios.post('/api/edit', {
 		first_name1: firstName,
 		last_name1: lastName,

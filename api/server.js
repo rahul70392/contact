@@ -145,8 +145,10 @@ list = (req, res, next) => {
 
 
 del = (req, res, next) => {
-	resp = req.body.deleteemail;
-	Contacts.findOneAndRemove({ "email": resp }).then(function () {
+	respm = req.body.deleteemail;
+	respf = req.body.fname;
+	respl = req.body.lname;
+	db.Contacts.findOneAndRemove({ admin: req.session.email, first_name: respf, last_name: respl, email: respm }).then(function () {
 		res.json({ status: "contact deleted" })
 	})
 }
@@ -160,12 +162,14 @@ edit = (req, res, next) => {
 		first_name: req.body.first_name1,
 		last_name: req.body.last_name1,
 		email: req.body.email1
-
 	}
-	Contacts.findOneAndUpdate({ first_name: resp.first_name, last_name: resp.last_name, email: resp.email })
+
+	// console.log('inside edit',resp);
+
+	db.Contacts.findOneAndUpdate({admin : req.session.email, first_name: resp.first_name, last_name: resp.last_name, email: resp.email })
 		.then(function (response) {
 			if (response) {
-				Contacts.update({ first_name: resp.first_name, last_name: resp.last_name, email: resp.email })
+				db.Contacts.update({ admin: req.session.email, first_name: resp.first_name, last_name: resp.last_name, email: resp.email })
 				res.json({ msg: "user is edited" });
 			}
 		})
