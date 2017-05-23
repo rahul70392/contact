@@ -1,17 +1,20 @@
 var express = require('express');
-// var passport = require('passport');
 var router = express.Router();
-// var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
-// var request = require('request');
+var auth = function (req, res, next) {
+	if (req.session && req.session.isLogged)
+		return next();
+	else
+		return res.json({ status: 'FAILED', message: 'Please login.' });
+};
 
 
 
-var addContact = require('../api/server')
-var listContact = require('../api/server')
-var deleteContact = require('../api/server')
-var editContact = require('../api/server')
-var authenticate = require('../api/server')
-var addUser = require('../api/server')
+var addContact = require('../api/addContact')
+var listContact = require('../api/listContact')
+var deleteContact = require('../api/deleteContact')
+var editContact = require('../api/editContact')
+var authenticate = require('../api/authenticate')
+var addUser = require('../api/addUser')
 
 router.post('/add',addContact.add)
 router.post('/list', listContact.list)

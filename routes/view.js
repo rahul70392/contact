@@ -1,14 +1,21 @@
 var express = require('express');
 var router = express.Router();
-// var authenticate = require ('../api/authenticate');
+var auth = function (req, res, next) {
+	if (req.session && req.session.isLogged)
+		return next();
+	else
+		return res.redirect('/');
+};
 
 
 
+// router.get('/my-account', auth, function (req, res, next) {
+// 	res.render('my-account', { title: 'Token | Wallet', session: req.session });
+// });
 
 
-/* GET home page. */
-router.get('/home',function(req, res, next) {
-  res.render('home', { title: 'Contacts' });
+router.get('/home',auth,function(req, res, next) {
+	res.render('home', { title: 'Contacts', session: req.session } )
 });
 
 
