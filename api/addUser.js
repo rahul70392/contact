@@ -12,10 +12,9 @@ addUser = (req, res, next) => {
 		.then(function (response) {
 			if (!response) {
 				// console.log('over jwt', contactRes.password);
-				var token = jwt.sign({ data: contactRes }, 'secret123');
-				console.log(token);
+				// var token = jwt.sign({ data: contactRes }, 'secret123');
+				// console.log(token);
 				var contact = new db.Accounts({
-					"token": token,
 					"password": contactRes.password,
 					"email": contactRes.email
 				});

@@ -15,13 +15,13 @@ var auth = function (req, res, next) {
 
 
 router.get('/home',auth,function(req, res, next) {
-	res.render('home', { title: 'Contacts', session: req.session } )
+	res.render('home', { title: ' Your Contacts', session: req.session } )
 });
 
 
 /* GET login page. */
 router.get('/', function (req, res, next) {
-	res.render('login', { title: 'Contacts' });
+	res.render('login', { title: 'Contacts App' });
 });
 
 router.get('/logout', auth, function (req, res, next) {

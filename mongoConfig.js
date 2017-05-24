@@ -10,7 +10,6 @@ var schema1 = new mongoose.Schema({
 });
 
 var schema2 = new mongoose.Schema({
-	token: String,
 	password : String,
 	email: String
 });
