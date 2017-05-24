@@ -17,13 +17,15 @@ var deleteContact = require('../api/deleteContact')
 var editContact = require('../api/editContact')
 var authenticate = require('../api/authenticate')
 var addUser = require('../api/addUser')
+var logout = require('../api/logout')
 
 router.post('/add',addContact.add)
-router.post('/list', listContact.list)
+router.post('/list',auth, listContact.list)
 router.post('/delete', deleteContact.del)
 router.post('/edit', editContact.edit)
 router.post('/authenticate', authenticate.authenticate)
 router.post('/adduser', addUser.addUser)
+router.post('/logout',logout.logout)
 
 
 module.exports = router;

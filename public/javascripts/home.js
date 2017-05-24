@@ -22,7 +22,7 @@ function contactList() {
 			html += '</br>';
 			html += '<button value="Submit" onclick="SignOff()">Sign Off</button>'
 			document.getElementById('contact_list').innerHTML = html;
-
+			
 
 		})
 		.catch(function (error) {
@@ -33,6 +33,7 @@ function contactList() {
 
 
 function addCon() {
+	
 	var firstName = document.getElementById("fn").value;
 	var lastName = document.getElementById("ln").value;
 	var email = document.getElementById("email").value;
@@ -68,7 +69,7 @@ function deleteCon(fname,lname,email) {
 
 			if (response) {
 				console.log(response);
-				contactList()
+				contactList();
 			}
 		})
 		.catch(function (error) {
@@ -78,7 +79,7 @@ function deleteCon(fname,lname,email) {
 
 function editCon(i, fn, ln, em) {
 
-	// var fntopass = fn;
+	// var em = em;
 
 	var html = '';
 	html += '<tr>';
@@ -86,29 +87,41 @@ function editCon(i, fn, ln, em) {
 	html += '<td>' + `<input type = "text" name = "first_name" id="fnedit" placeholder=${fn}>` + '</td>'
 	html += '<td>' + `<input type = "text" name = "last_name" id="lnedit" placeholder=${ln}>` + '</td>'
 	html += '<td>' + `<input type = "text" name = "email" id="emailedit" placeholder=${em}>` + '</td>'
-	html += '<td>' + `<button value = "Submit" onclick="addAfterEdit()" >Submit</button>` + '</td>'
+	html += '<td>' + `<button value = "Submit" onclick="addAfterEdit('${em}')" >Submit</button>` + '</td>'
 	html += '</tr>';
 
 	document.getElementById(`row${i}`).innerHTML = html;
 }
 
-function addAfterEdit() {
+function addAfterEdit(om) {
 	var firstName = document.getElementById("fnedit").value;
 	var lastName = document.getElementById("lnedit").value;
 	var email = document.getElementById("emailedit").value;
-
+	var oem = om;
 	// console.log('eeee ', email);
 	axios.post('/api/edit', {
 		first_name1: firstName,
 		last_name1: lastName,
-		email1: email
+		email1: email,
+		oldemail : oem
 	})
 		.then(function (response) {
+			console.log('user edited');
 			contactList();
 		})
 }
 
 function SignOff() {
-	location.replace('/')
+	axios.post('/api/logout')
+		.then(function (response) {
+			if (response.data.isLogged == false) {
+				location.replace('/')
+				alert('you logged out');
+		}
+	
+	})
 }
+
 contactList();
+
+

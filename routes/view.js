@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var auth = function (req, res, next) {
-	if (req.session && req.session.isLogged)
+	if (req.session.email && req.session.isLogged)
 		return next();
 	else
 		return res.redirect('/');
@@ -14,8 +14,10 @@ var auth = function (req, res, next) {
 // });
 
 
-router.get('/home',auth,function(req, res, next) {
-	res.render('home', { title: ' Your Contacts', session: req.session } )
+router.get('/home', auth, function (req, res, next) {
+	if (req.session.isLogged) {
+		res.render('home', { title: ' Your Contacts', session: req.session.email })
+	}
 });
 
 
@@ -25,6 +27,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/logout', auth, function (req, res, next) {
+	req.session.isLogged = false,
 	req.session.destroy();
 	res.redirect('/');
 });

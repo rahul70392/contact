@@ -3,7 +3,7 @@ var db = require('../mongoConfig');
 authenticate = (req, res, next) => {
 
 	db.Accounts.findOne({
-		email: req.body.email
+		email: req.body.email, password: req.body.password
 	}, function (err, user) {
 
 		if (err) throw err;
@@ -26,7 +26,7 @@ authenticate = (req, res, next) => {
 				res.json({
 					success: true,
 					message: 'user logged in!',
-					// token: token,
+					isLogged : req.session.isLogged
 		
 				});
 			}

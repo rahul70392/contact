@@ -9,7 +9,7 @@ function userLogin() {
 	})
 		.then(function (response) {
 			console.log('singn in res', response);
-			if (response.data.success === true) {
+			if (response.data.success && response.data.isLogged) {
 				location.replace('/home')
 
 			}//end of if
